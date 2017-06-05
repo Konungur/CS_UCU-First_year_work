@@ -1,15 +1,10 @@
-def user_id():
-    user_ID = str(input())
-    return user_ID
+data = {}
+for line in open('data.txt'):
+    line = line.split('\n')  # from str into dict
+    line = line[0]  # get rid of last element
+    line = line.split(' ')  # divide the elements
+    line[1] = str(line[1])  # making coords
+    line[2] = str(line[2])
+    data[line[0]] = line[1:]
+print(data)
 
-def data_save(user_ID):
-    url = "http://open.api.ebay.com/shopping?callname=GetUserProfile&responseencoding=XML&appid=OrestKor-TestTry-PRD-a090b840d-387704b9&siteid=0&version=967&UserID=" + user_ID + "&IncludeSelector=FeedbackDetails,FeedbackHistory"
-    r = requests.get(url)
-    with urllib.request.urlopen(url) as response:
-        # read the response from the response object
-        data = response.read()
-        # decode it from bytes to string
-        data = data.decode("utf-8")
-        # parse the string into a python object of dictionaries and lists
-        json.loads(data)
-    return data
